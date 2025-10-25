@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Calculadora Geométrica</title>
+    <link rel="stylesheet" href="styles.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script defer src="/scripts/script.js"></script>
+    <script defer src="/scripts/buildFigure.js"></script>
+    <script defer src="/scripts/calculator.js"></script>
+</head>
+<body>
+    <!-- Botón hamburguesa para móviles -->
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+    
+    <!-- Overlay para cerrar menú -->
+    <div class="overlay" id="overlay"></div>
+    
+    <aside id="sidebar">
+        <h2><i class="fas fa-shapes"></i> Figuras</h2>
+        <ul>
+            <li id="btn-triangle"><i class="fas fa-play"></i> Triángulo</li>
+            <li id="btn-square"><i class="fas fa-square"></i> Cuadrado</li>
+            <li id="btn-rectangle"><i class="fa-solid fa-rectangle-xmark"></i> Rectángulo</li> 
+            <li id="btn-cube"><i class="fas fa-cube"></i> Cubo</li>
+            <li id="btn-prism"><i class="fas fa-database"></i> Prisma</li> 
+            <li id="btn-pyramid"><i class="fas fa-mountain"></i> Pirámide</li> 
+        </ul>
+    </aside>
+    
+    <main id="mainContent">
+        <section id="canvas-section">
+            <h3>Configurar Figura</h3>
+            <div id="figure-canvas">
+                <p class="placeholder">Selecciona una figura para comenzar</p>
+            </div>
+        </section>
+
+        <section id="result-section">
+            <h3>Resultados</h3>
+            <div id="results">
+                <p class="placeholder">Los cálculos aparecerán aquí</p>            
+            </div>
+        </section>
+    </main>
+
+    <div id="floating-input" class="floating-input-hidden">
+        <input type="number" id="dimension-input" placeholder="Ingresa valor">
+        <button id="confirm-btn"><i class="fa-solid fa-check"></i></button>
+        <button id="cancel-btn"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    
+    <script>
+        // JavaScript para el menú responsivo
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mainContent = document.getElementById('mainContent');
+        
+        function toggleMenu() {
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        
+        menuToggle.addEventListener('click', toggleMenu);
+        overlay.addEventListener('click', toggleMenu);
+        
+        // Cerrar menú al hacer clic en un elemento de la lista (en móviles)
+        const menuItems = document.querySelectorAll('aside ul li');
+        menuItems.forEach(item => {
+            item.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    toggleMenu();
+                }
+            });
+        });
+        
+        // Ajustar dinámicamente según el tamaño de la pantalla
+        function handleResize() {
+            if (window.innerWidth > 768) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        }
+        
+        window.addEventListener('resize', handleResize);
+    </script>
+</body>
+</html>
